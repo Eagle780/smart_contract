@@ -1,7 +1,8 @@
 # smart_contract
+
 ## Aprašymas
 
-Ši išmanioji sutartis yra skirta draudimo įmonės verslo modelio vaizdavimui. Joje dalyvauja *draudėjas* ir *klientas*, o pati išmanioji sutartis savyje dar saugo mėnesinį mokestį, kliento patirtų įvykių skaičių ir klientui išmokėtą draudimo sumą.
+Ši išmanioji sutartis yra skirta draudimo įmonės verslo modelio vaizdavimui. Joje dalyvauja _draudėjas_ ir _klientas_, o pati išmanioji sutartis savyje dar saugo mėnesinį mokestį, kliento patirtų įvykių skaičių ir klientui išmokėtą draudimo sumą.
 
 ## Logika
 
@@ -24,4 +25,5 @@ Išmanosios sutartys populiarėja visur, jos gali būti pritaikytos įvairiems d
 5. Draudimo išmoka. Kliento įvykio užregistravimo atveju draudėjas išmoka klientui jam priskaičiuotą draudimo išmoką.
 6. Išmokėjimas. Išmaniojoje sutartyje saugomi kliento mokėjimai pervedami draudėjui.
 7. Išmokėjimas. Išmaniojoje sutartyje saugomi draudėjo išmokėjimai už įvykius pervedami klientui.
+
 Pasibaigus draudimo terminui ir nepratęsus sutarties, sutartis pabaigiama.
