@@ -27,3 +27,9 @@ Išmanosios sutartys populiarėja visur, jos gali būti pritaikytos įvairiems d
 7. Išmokėjimas. Išmaniojoje sutartyje saugomi draudėjo išmokėjimai už įvykius pervedami klientui.
 
 Pasibaigus draudimo terminui ir nepratęsus sutarties, sutartis pabaigiama.
+
+## Išmaniosios sutarties testavimas lokaliame tinkle
+
+Parašius reikiamą kodą per remix IDE ir sukūrus reikiamus failus naudojant truffle, buvo galima ištestuoti šią išmaniąją sutartį lokaliame tinkle. Atskirame lange buvo paleistas tinklas su 10 adresų, kurie būtų naudojami sutarčiai:
+
+Tada sukompiliavus ir migravus išmaniąją sutartį į lokalų tinklą, ji buvo sukurta:

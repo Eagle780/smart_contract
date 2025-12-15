@@ -56,13 +56,6 @@ contract Draudimas {
    Klientas public klientas;
    Menesis[] public menesiai;
 
-    /** 
-     * @dev sudaroma sutartis tarp draudejo ir kliento
-     * @param _klientoAddr klientas, su kuriuo sudaroma sutartis
-     * @param _amzius kliento amzius
-     * @param _sveikata kliento sveikata
-     * @param _profesija kliento profesija
-     */
     constructor(address _klientoAddr, uint _amzius, sveikatosTipas _sveikata, profesijosTipas _profesija) {
             require(_amzius >= 18, "Klientas turi buti pilnametis");
             require(msg.sender != _klientoAddr, "Draudejas negali buti klientas");
@@ -105,7 +98,7 @@ contract Draudimas {
         emit sumoketa(menesiai[uint(n)].suma, msg.sender);
     }
 
-    function ismoka(uint n, ivykioTipas ivykioLygis) public payable {
+    function ismoka(uint n, ivykioTipas ivykioLygis) private {
         menesiai[n].ismoketaSuma = menesiai[n].ismoketaSuma + (uint(ivykioLygis) + 1) * 100;
         menesiai[n].ivykiuSkaicius = menesiai[n].ivykiuSkaicius + 1;
         emit sumoketa(menesiai[n].ismoketaSuma, draudejas.draudejoAddr);
