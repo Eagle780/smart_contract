@@ -26,7 +26,7 @@ contract Draudimas {
 
     struct Menesis {
         uint suma;
-        bool sumoketa;
+        bool sumokejo;
         uint ivykiuSkaicius;
         uint ismoketaSuma;
     }
@@ -68,7 +68,7 @@ contract Draudimas {
     function skaiciuotiSuma() public {
             require(msg.sender == draudejas.draudejoAddr, "Skaiciuoti suma gali tik draudejas");
             uint reikiamaSuma = (klientas.amzius / 10) * 100 + (uint(klientas.profesija) + 1) * 100 + (uint(klientas.sveikatosBukle) + 1) * 100;
-            menesiai.push(Menesis({suma: reikiamaSuma, sumoketa: false, ivykiuSkaicius: 0, ismoketaSuma: 0}));
+            menesiai.push(Menesis({suma: reikiamaSuma, sumokejo: false, ivykiuSkaicius: 0, ismoketaSuma: 0}));
             emit gauta(reikiamaSuma, msg.sender);
     }
 
@@ -76,8 +76,8 @@ contract Draudimas {
         require(msg.sender == klientas.klientoAddr, "Sumoketi gali tik klientas");
         require(menesiai.length > 0, "Draudejas nepateike nei vienos sumos");
         for (uint i=0; i < menesiai.length; i++) {
-            if (menesiai[i].sumoketa == false) {
-                menesiai[i].sumoketa = true;
+            if (menesiai[i].sumokejo == false) {
+                menesiai[i].sumokejo = true;
                 emit sumoketa(menesiai[i].suma, msg.sender);
                 break;
             }
@@ -89,7 +89,7 @@ contract Draudimas {
         require(menesiai.length > 0, "Draudejas nepateike nei vienos sumos");
         int n = -1;
         for (uint i=0; i < menesiai.length; i++) {
-            if (menesiai[i].sumoketa == true) {
+            if (menesiai[i].sumokejo == true) {
                 n = int(i);
             }
         }
@@ -98,9 +98,24 @@ contract Draudimas {
         emit sumoketa(menesiai[uint(n)].suma, msg.sender);
     }
 
-    function ismoka(uint n, ivykioTipas ivykioLygis) private {
+    function ismoka(uint n, ivykioTipas ivykioLygis) public payable {
         menesiai[n].ismoketaSuma = menesiai[n].ismoketaSuma + (uint(ivykioLygis) + 1) * 100;
         menesiai[n].ivykiuSkaicius = menesiai[n].ivykiuSkaicius + 1;
         emit sumoketa(menesiai[n].ismoketaSuma, draudejas.draudejoAddr);
+    }
+
+    function getKlientas() external view returns (address klientoAddr, uint amzius, sveikatosTipas sveikata, profesijosTipas profesija) {
+    Klientas storage k = klientas;
+    return (k.klientoAddr, k.amzius, k.sveikatosBukle, k.profesija);
+    }
+
+    function getDraudejas() external view returns (address draudejoAddr) {
+    Draudejas storage d = draudejas;
+    return (d.draudejoAddr);
+    }
+
+    function gautiMenesi(uint i) public view returns(uint suma, bool sumokejo, uint ivykiuSkaicius, uint ismoketaSuma) {
+        Menesis storage m = menesiai[i];
+        return (m.suma, m.sumokejo, m.ivykiuSkaicius, m.ismoketaSuma);
     }
 }
