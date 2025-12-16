@@ -1,3 +1,14 @@
+var klientas = document.getElementById("klientas");
+var draudejas = document.getElementById("draudejas");
+var menesis = document.getElementById("menesis");
+var menesioSuma = document.getElementById("menesioSuma");
+var sumoketiM = document.getElementById("sumoketi");
+var ivykis = document.getElementById("ivykis");
+var ivykisP = document.getElementById("ivykisP");
+
+var menNr = 0;
+var sumoketiMen = 0;
+
 App = {
   web3Provider: null,
   contracts: {},
@@ -70,16 +81,23 @@ function skaiciuotiSuma() {
   App.instance.skaiciuotiSuma({
     from: App.dabrAddr,
   });
+  if (App.dabrAddr == App.adresai[0]) {
+    menNr++;
+    menesioSuma.innerHTML = `Draudėjas suskaičiavo ${menNr}-ojo mėnesio sumą`;
+  }
 }
 
 function sumoketi() {
   App.instance.sumoketi({
     from: App.dabrAddr,
   });
+  if (App.dabrAddr == App.adresai[1]) {
+    sumoketiMen++;
+    sumoketiM.innerHTML = `Klientas sumokėjo už ${sumoketiMen}-ąjį mėnesį`;
+  }
 }
 
 function uzregistruotiIvyki() {
-  var ivykis = document.getElementById("ivykis");
   if (ivykis.value == "") return;
   if (ivykis.value >= 3) {
     alert("Ivykis gali buti tik 0 - Smulkus, 1 - vidutinis ir 2 - sunkus");
@@ -88,31 +106,38 @@ function uzregistruotiIvyki() {
   App.instance.uzregistruotiIvyki(ivykis.value, {
     from: App.dabrAddr,
   });
+  ivykisP.innerHTML = `Įvykis užregistruotas prie ${sumoketiMen} mėnesio`;
 }
 
 async function gautiKlienta() {
-  const klientas = await App.instance.getKlientas();
+  const kl = await App.instance.getKlientas();
   console.log(
-    klientas.klientoAddr,
-    klientas.amzius.words[0],
-    klientas.sveikata.words[0],
-    klientas.profesija.words[0]
+    kl.klientoAddr,
+    kl.amzius.words[0],
+    kl.sveikata.words[0],
+    kl.profesija.words[0]
   );
+  klientas.innerHTML = `Kliento adresas: ${kl.klientoAddr},
+  amzius: ${kl.amzius.words[0]},
+  sveikata: ${kl.sveikata.words[0]},
+  profesija: ${kl.profesija.words[0]}`;
 }
 
 async function gautiDraudeja() {
-  const draudejas = await App.instance.getDraudejas();
-  console.log(draudejas);
+  const dr = await App.instance.getDraudejas();
+  console.log(dr);
+  draudejas.innerHTML = `draudejo adresas: ${dr}`;
 }
 
 async function gautiMenesi() {
   var n = document.getElementById("nr");
   if (n.value == "") return;
-  const menesis = await App.instance.gautiMenesi(n.value);
+  const men = await App.instance.gautiMenesi(n.value);
   console.log(
-    menesis.suma.words[0],
-    menesis.sumokejo,
-    menesis.ivykiuSkaicius.words[0],
-    menesis.ismoketaSuma.words[0]
+    men.suma.words[0],
+    men.sumokejo,
+    men.ivykiuSkaicius.words[0],
+    men.ismoketaSuma.words[0]
   );
+  menesis.innerHTML = `menesio suma: ${men.suma.words[0]}, ar sumoketa: ${men.sumokejo}, ivykiu skaicius: ${men.ivykiuSkaicius.words[0]}, ismoketa suma: ${men.ismoketaSuma.words[0]}`;
 }

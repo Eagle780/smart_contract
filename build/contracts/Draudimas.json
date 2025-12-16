@@ -17224,12 +17224,12 @@
         }
       },
       "links": {},
-      "address": "0xF0D9351Cb8F662a9a62E34e1569AD7E196751645",
-      "transactionHash": "0xc281d2c47ac399f3e6e7ad677a5d386a2c010d183ee68fa1e8adf6e7851403ff"
+      "address": "0x138CaA480DE905DD18280882dCa7F1fF4fE637Ab",
+      "transactionHash": "0xadfffc4549eb3b8850eaf2757f3b2921a278633148ee52f61237f839bbe85d89"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2025-12-16T10:31:22.553Z",
+  "updatedAt": "2025-12-16T21:14:01.644Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "Kliento apdraudimo implementacija",

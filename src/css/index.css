@@ -1,3 +1,71 @@
-h1 {
+* {
     font-family: poppins;
+    font-size: 15px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 25px;
+}
+
+select {
+    border: none;
+    background-color:  #c8d8f3;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.gridas {
+    display: grid;
+    grid-template-columns: 300px 500px;
+    align-items: center;
+    text-align: end;
+    gap: 15px;
+}
+
+button {
+    border: none;
+    background-color: #3981F7;
+    color: white;
+    padding: 10px;
+    border-radius: 7px;
+    width: fit-content;
+}
+button:hover {
+    cursor: pointer;
+    background-color: #156dfb;
+}
+
+.menesioBtn, .ivykioBtn {
+    border-radius: 7px 0 0 7px;
+}
+
+p {
+    background-color: #C4C4C4;
+    margin: 0;
+    text-align: center;
+    border-radius: 7px;
+    height: 100%;
+    text-wrap: balance;
+}
+
+input[type="number"] {
+    position: relative;
+    appearance: textfield;
+    text-align: center;
+    height: 41.2px;
+    width: 40px;
+    border: none;
+    background-color:  #c8d8f3;
+    border-radius: 0 7px 7px 0;
+    left: -4px;
+}
+
+input[type="number"]:focus {
+    outline: none;
 }
