@@ -12,8 +12,6 @@ Išmaniąją sutartį sukuria draudėjas, kaip argumentus pateikdamas kliento ad
 
 Išmanosios sutartys populiarėja visur, jos gali būti pritaikytos įvairiems dalykams, nuo balsavimo iki kompiuterinių žaidimų. Draudimas ne išimtis. Išmaniosios sutartys šioje sferoje padėtų taupyti laiką, didinti žmonių pasitikėjimą bei leidžia draudėjui apsisaugoti nuo draudimo sukčiavimo, kas kenkia ne vien jiems, bet ir visiems klientams, kurie turi mokėti didesnes kainas.
 
-## Scenarijai
-
 ## Sekų diagrama ir jos aprašymas
 
 <img width="600" height="630" alt="Sequence diagram" src="https://github.com/user-attachments/assets/f0d6c5dc-9112-4813-87dd-fd2e4ba3310b" />
@@ -31,8 +29,10 @@ Pasibaigus draudimo terminui ir nepratęsus sutarties, sutartis pabaigiama.
 ## Išmaniosios sutarties testavimas lokaliame tinkle
 
 Parašius reikiamą kodą per Remix IDE ir sukūrus reikiamus failus naudojant truffle, buvo galima ištestuoti šią išmaniąją sutartį lokaliame tinkle. Atskirame lange buvo paleistas tinklas su 10 adresų, kurie būtų naudojami sutarčiai:
+<img width="633" height="518" alt="lokalus blockchainas" src="https://github.com/user-attachments/assets/80a40fb3-5192-4ec1-ae9e-579784f5f82a" />
 
 Tada sukompiliavus ir migravus išmaniąją sutartį į lokalų tinklą, ji buvo sukurta:
+<img width="912" height="953" alt="paleista ismanioji sutartis" src="https://github.com/user-attachments/assets/2f9aaf06-8641-4a69-bf0a-9eb897b61230" />
 
 ## Išmaniosios sutarties testavimas testiniame tinkle
 
@@ -43,6 +43,9 @@ Tam buvo pasinaudota Sepolia testiniu tinklu. Prieš pradedant jį naudoti reik�
 Po šių veiksmų buvo galima grįžti į Remix IDE ir per jį, prijungus savo Metamask paskyrą, kurioje yra Sepolia ETH, paleisti ir naudoti savo išmaniąją sutartį.
 
 Šios išmaniosios sutarties log'ai buvo peržiūrėti Etherscan pabalga:
+<img width="1723" height="785" alt="Etherscan logas" src="https://github.com/user-attachments/assets/8127e24f-132f-4674-9c02-6325731fe90c" />
+<img width="1748" height="415" alt="Etherscan logas" src="https://github.com/user-attachments/assets/d8750e81-7862-4891-979e-597d9617b101" />
+<img width="1376" height="874" alt="Etherscan logas" src="https://github.com/user-attachments/assets/2f5c79aa-640a-495a-8838-a422361465be" />
 
 ## Front-end'o kūrimas
 
