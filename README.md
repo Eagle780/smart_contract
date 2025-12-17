@@ -30,6 +30,20 @@ Pasibaigus draudimo terminui ir nepratęsus sutarties, sutartis pabaigiama.
 
 ## Išmaniosios sutarties testavimas lokaliame tinkle
 
-Parašius reikiamą kodą per remix IDE ir sukūrus reikiamus failus naudojant truffle, buvo galima ištestuoti šią išmaniąją sutartį lokaliame tinkle. Atskirame lange buvo paleistas tinklas su 10 adresų, kurie būtų naudojami sutarčiai:
+Parašius reikiamą kodą per Remix IDE ir sukūrus reikiamus failus naudojant truffle, buvo galima ištestuoti šią išmaniąją sutartį lokaliame tinkle. Atskirame lange buvo paleistas tinklas su 10 adresų, kurie būtų naudojami sutarčiai:
 
 Tada sukompiliavus ir migravus išmaniąją sutartį į lokalų tinklą, ji buvo sukurta:
+
+## Išmaniosios sutarties testavimas testiniame tinkle
+
+Sukūrus lokalų tinklą ir jame ištestavus išmaniąją sutartį, buvo galima pereiti prie sekančio žingsnio: sutarties testavimo testiniame tinkle.
+
+Tam buvo pasinaudota Sepolia testiniu tinklu. Prieš pradedant jį naudoti reikėjo savo naršyklėje atsisiųsti Metamask add-on'ą, susikurti paskyrą ir, kad išvis būtų galima paleisti ir naudoti išmaniąją sutartį, į savo adresą gauti Sepolia ETH. Tai atlikus, per Metamask nustatymus buvo galima pridėti Sepolia testinį tinklą prie galimų esančių tinklų.
+
+Po šių veiksmų buvo galima grįžti į Remix IDE ir per jį, prijungus savo Metamask paskyrą, kurioje yra Sepolia ETH, paleisti ir naudoti savo išmaniąją sutartį.
+
+Šios išmaniosios sutarties log'ai buvo peržiūrėti Etherscan pabalga:
+
+## Front-end'o kūrimas
+
+Atlikus šiuos veiksmus, buvo galima pereiti prie Front-end'o kūrimo. Tam reikėjo pakeisti dabartinio aplanko, kuriame buvo visa lokalios išmaniosios sutarties logika, struktūrą, reikėjo pridėti tinklapio logiką ir ją sujunti su išmaniąja sutartimi. Tai padarius buvo gautas puslapis, kurio pagalba buvo galima valdyti išmaniąją sutartį paprastesniu būdu.
