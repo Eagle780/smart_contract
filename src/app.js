@@ -5,6 +5,8 @@ var menesioSuma = document.getElementById("menesioSuma");
 var sumoketiM = document.getElementById("sumoketi");
 var ivykis = document.getElementById("ivykis");
 var ivykisP = document.getElementById("ivykisP");
+var ismoka = document.getElementById("ismoka");
+var ismokaP = document.getElementById("ismokaP");
 
 var menNr = 0;
 var sumoketiMen = 0;
@@ -14,6 +16,7 @@ App = {
   contracts: {},
   instance: null,
   dabrAddr: null,
+  menesiai: {},
 
   init: function () {
     return App.initWeb3();
@@ -72,28 +75,45 @@ async function gautiAdresus() {
   });
 
   App.dabrAddr = adresai[0];
+  rasytiBalansa();
   select.onchange = () => {
     App.dabrAddr = select.value;
+    rasytiBalansa();
   };
 }
 
-function skaiciuotiSuma() {
+async function rasytiBalansa() {
+  const wei = await web3.eth.getBalance(App.dabrAddr);
+  const bal = web3.utils.fromWei(wei, "ether");
+  var addrBal = document.getElementById("bal");
+  addrBal.innerHTML = `Balansas: ${bal} Eth`;
+}
+
+async function skaiciuotiSuma() {
   App.instance.skaiciuotiSuma({
     from: App.dabrAddr,
   });
   if (App.dabrAddr == App.adresai[0]) {
     menNr++;
     menesioSuma.innerHTML = `Draudėjas suskaičiavo ${menNr}-ojo mėnesio sumą`;
+  } else {
+    alert("Veiksmą atlieka netinkamas adresas");
   }
 }
 
-function sumoketi() {
-  App.instance.sumoketi({
+async function sumoketi() {
+  const men = await App.instance.gautiMenesi(0);
+  await App.instance.sumoketi({
     from: App.dabrAddr,
+    value: web3.utils.toWei(men.suma.toString(), "wei"),
   });
   if (App.dabrAddr == App.adresai[1]) {
     sumoketiMen++;
     sumoketiM.innerHTML = `Klientas sumokėjo už ${sumoketiMen}-ąjį mėnesį`;
+    await atnaujintiBal();
+    await rasytiBalansa();
+  } else {
+    alert("Veiksmą atlieka netinkamas adresas");
   }
 }
 
@@ -106,7 +126,50 @@ function uzregistruotiIvyki() {
   App.instance.uzregistruotiIvyki(ivykis.value, {
     from: App.dabrAddr,
   });
-  ivykisP.innerHTML = `Įvykis užregistruotas prie ${sumoketiMen} mėnesio`;
+  ivykisP.innerHTML = `Įvykis užregistruotas prie ${sumoketiMen}-ojo mėnesio`;
+}
+
+async function atliktiIsmoka() {
+  if (ismoka.value == "") return;
+  if (ismoka.value >= sumoketiMen) {
+    alert("pasirinktas netinkamas menuo");
+    return;
+  }
+  var men;
+  var n = menNr;
+  if (n == 0) n++;
+  for (let i = 0; i < n; i++) {
+    var menL = await App.instance.gautiMenesi(i);
+    if (menL.sumokejo) men = menL;
+  }
+  await App.instance.ismoka(ismoka.value, {
+    from: App.dabrAddr,
+    value: web3.utils.toWei(men.reikiamaSuma.toString(), "wei"),
+  });
+  await atnaujintiBal();
+  await rasytiBalansa();
+  ismokaP.innerHTML = `Draudėjas pervedė išmoką dėl ${sumoketiMen}-ojo mėnesio`;
+}
+
+async function pervestiPinigus() {
+  if (App.dabrAddr == App.adresai[0]) {
+    await App.instance.pervestiPinigus({
+      from: App.dabrAddr,
+    });
+    var pinigai = document.getElementById("pinigai");
+    pinigai.innerHTML = "Pinigai pervesti draudėjui ir klientui";
+    await atnaujintiBal();
+    await rasytiBalansa();
+  } else {
+    alert("Veiksmą atlieka netinkamas adresas");
+  }
+}
+
+async function atnaujintiBal() {
+  var sutBal = document.getElementById("sutBal");
+  const balWei = await web3.eth.getBalance(App.instance.address);
+  const balEth = web3.utils.fromWei(balWei, "ether");
+  sutBal.innerHTML = `Sutarties balansas: ${balEth} Eth`;
 }
 
 async function gautiKlienta() {
@@ -131,13 +194,24 @@ async function gautiDraudeja() {
 
 async function gautiMenesi() {
   var n = document.getElementById("nr");
-  if (n.value == "") return;
+  if (n.value == "" || n.value > menNr) {
+    alert("Netinkama įvestis");
+    return;
+  }
   const men = await App.instance.gautiMenesi(n.value);
   console.log(
-    men.suma.words[0],
+    web3.utils.fromWei(men.suma.toString(), "ether"),
     men.sumokejo,
     men.ivykiuSkaicius.words[0],
-    men.ismoketaSuma.words[0]
+    web3.utils.fromWei(men.ismoketaSuma.toString(), "ether")
   );
-  menesis.innerHTML = `menesio suma: ${men.suma.words[0]}, ar sumoketa: ${men.sumokejo}, ivykiu skaicius: ${men.ivykiuSkaicius.words[0]}, ismoketa suma: ${men.ismoketaSuma.words[0]}`;
+  menesis.innerHTML = `menesio suma: ${web3.utils.fromWei(
+    men.suma,
+    "ether"
+  )}, ar sumoketa: ${men.sumokejo}, ivykiu skaicius: ${
+    men.ivykiuSkaicius.words[0]
+  }, reikiama suma: ${web3.utils.fromWei(
+    men.reikiamaSuma,
+    "ether"
+  )} ismoketa suma: ${web3.utils.fromWei(men.ismoketaSuma, "ether")}`;
 }
